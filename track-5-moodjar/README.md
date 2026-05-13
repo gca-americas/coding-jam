@@ -1,12 +1,12 @@
-# 🪟 Windowsill
+# 🫙 MoodJar
 
-**Place a thought, receive warmth.** A gentle AI-powered comfort app where you write anything — the weather, someone you thought of, something that just happened — and receive a beautiful, shareable card with 3 comforting sentences and a relevant emoji.
+**Drop a thought, receive warmth.** A gentle AI-powered comfort app where you write anything — the weather, someone you thought of, something that just happened — and receive a beautiful, shareable card with 3 comforting sentences and a relevant emoji.
 
 ---
 
 ## What Is This?
 
-Windowsill is a single-screen web app that creates a gentle ritual: write a thought → place it on your windowsill → receive warmth back. It uses **Google Gemini AI** to generate specific, warm responses matched to whatever you wrote.
+MoodJar is a single-screen web app that creates a gentle ritual: write a thought → drop it in your jar → receive warmth back. It uses **Google Gemini AI** to generate specific, warm responses matched to whatever you wrote.
 
 The result is displayed on a stunning glassmorphism card designed to be **screenshotted and shared**.
 
@@ -15,7 +15,7 @@ The result is displayed on a stunning glassmorphism card designed to be **screen
 ## Project Structure
 
 ```
-windowsill/
+track-5-moodjar/
 ├── README.md                     # This file
 ├── frontend/
 │   ├── index.html                # Single-page UI (input → loading → card)
@@ -61,7 +61,7 @@ Before you start, make sure you have:
 ### Step 1: Navigate to the project
 
 ```bash
-cd /path/to/coding-jam/windowsill
+cd track-5-moodjar
 ```
 
 ### Step 2: Authenticate with Google Cloud
@@ -144,7 +144,7 @@ That's it! The backend serves the frontend automatically — no separate fronten
 ```
 
 1. **Write** — Type any thought in the textarea
-2. **Place** — Click "Place on my windowsill"
+2. **Drop** — Click "Drop into my jar"
 3. **Receive** — A glassmorphism card appears with an emoji and 3 comforting sentences
 4. **Repeat** — Click "Place something else" to start fresh
 

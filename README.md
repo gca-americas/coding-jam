@@ -10,7 +10,7 @@ A collection of MVP demos built during a Google Build with AI coding jam. Each `
 | 2 | [track-2-avatar-studio](track-2-avatar-studio/) | Turn a photo into an avatar across art styles (LEGO, Pixel Art, Manga, Watercolor, Claymation, Cyberpunk). |
 | 3 | [track-3-year-in-poetry](track-3-year-in-poetry/) | Scroll-driven calendar that turns meaningful dates into an AI-curated "year as a poem." |
 | 4 | [track-4-fridge-chef](track-4-fridge-chef/) | Turn random fridge ingredients into AI-generated recipes with food photography. |
-| 5 | [track-5-moodjar](track-5-moodjar/) | "Windowsill" — write a passing thought, get a shareable comfort card with 3 gentle sentences. |
+| 5 | [track-5-moodjar](track-5-moodjar/) | MoodJar — drop a passing thought into the jar, get a shareable comfort card with 3 gentle sentences. |
 | 6 | [track-6-my-corner](track-6-my-corner/) | AI-powered personal landing page generator from a plain-language self-description. |
 | 7 | [track-7-bulletproof](track-7-bulletproof/) | Career Tailor — sharpen resume bullets to match a specific job posting. |
 | 8 | [track-8-character-chat](track-8-character-chat/) | Anime-inspired chat with an AI character you create. |
