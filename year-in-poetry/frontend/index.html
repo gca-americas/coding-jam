@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tell us the dates that matter to you. We'll turn your year into something sparkly — Y2K dreamcore edition." />
+  <title>✦ MY YEAR IN MOMENTS ✦</title>
+
+  <!-- Fonts: Y2K Dreamcore typography system -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=VT323&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background layers — the holographic mall canvas -->
+  <div class="bg-layers">
+    <div class="bg-hologram"></div>
+    <div class="bg-sparkle"></div>
+    <div class="bg-shimmer"></div>
+  </div>
+
+  <!-- Floating decorative chrome bits (visible across all screens) -->
+  <div class="floating-deco floating-deco-tl" aria-hidden="true">
+    <div class="chrome-window mini-window">
+      <div class="chrome-window-header">
+        <span class="hdr-left">[X]</span>
+        <span class="hdr-title">system.ini</span>
+        <span class="hdr-right">✨</span>
+      </div>
+      <div class="mini-window-body">
+        <span class="pixel-line">C:\&gt; READY_</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-deco floating-deco-br" aria-hidden="true">
+    <div class="chrome-window mini-window">
+      <div class="chrome-window-header">
+        <span class="hdr-left">[X]</span>
+        <span class="hdr-title">heart.exe</span>
+        <span class="hdr-right">♥</span>
+      </div>
+      <div class="mini-window-body">
+        <span class="pixel-line">♪ NOW PLAYING ♪</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ========== SCREEN 1: LANDING — Holographic Mall Layout ========== -->
+  <section id="screen-landing" class="screen active">
+    <div class="landing-layout">
+
+      <!-- Main chrome window: title + CTA -->
+      <div class="chrome-window landing-main-window">
+        <div class="chrome-window-header">
+          <span class="hdr-left">[X]</span>
+          <span class="hdr-title">C:\YEAR\MOMENTS.EXE</span>
+          <span class="hdr-right">🛍 ✨ ♪</span>
+        </div>
+        <div class="chrome-window-body">
+          <p class="kicker pixel-line">★ WELCOME TO THE WORLD OF ★</p>
+          <h1 class="landing-title" id="landing-title">
+            <span class="word">MY</span>
+            <span class="word">YEAR</span>
+            <span class="word word-accent">in</span>
+            <span class="word">MOMENTS</span>
+          </h1>
+          <div class="landing-line" id="landing-line"></div>
+          <p class="landing-subtitle" id="landing-subtitle">
+            the dates that shaped your year —<br />
+            we'll turn them into something sparkly to keep forever ✦
+          </p>
+          <button class="btn-y2k btn-begin" id="btn-begin">
+            <span class="btn-text">✦ START THE TRANSFORMATION ✦</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Heroine in her own overlapping chrome window -->
+      <div class="chrome-window heroine-window" id="heroine-window">
+        <div class="chrome-window-header">
+          <span class="hdr-left">[X]</span>
+          <span class="hdr-title">heroine.bmp</span>
+          <span class="hdr-right">📷 ✨</span>
+        </div>
+        <div class="chrome-window-body heroine-body">
+          <img
+            src="y2k-heroine.png"
+            alt="Y2K dreamcore heroine — sparkly holographic chrome aesthetic"
+            class="heroine-img"
+            id="heroine-img"
+          />
+        </div>
+      </div>
+
+      <!-- Decorative download dialog popping over the corner -->
+      <div class="chrome-window download-deco" aria-hidden="true">
+        <div class="chrome-window-header">
+          <span class="hdr-left">DOWNLOADING DREAM...</span>
+          <span class="hdr-right">[X]</span>
+        </div>
+        <div class="download-deco-body">
+          <div class="progress-bar mini-progress">
+            <div class="progress-fill" style="width: 76%"></div>
+          </div>
+          <span class="pixel-line">76% — please wait ♥</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== SCREEN 2: DATE INPUT ========== -->
+  <section id="screen-input" class="screen">
+    <div class="chrome-window input-window">
+      <div class="chrome-window-header">
+        <span class="hdr-left">[X]</span>
+        <span class="hdr-title">YOUR_MOMENTS.DAT</span>
+        <span class="hdr-right">💌 ✨ ♪</span>
+      </div>
+      <div class="chrome-window-body">
+        <h2 class="input-heading">YOUR MOMENTS ✦</h2>
+        <p class="input-subheading">
+          Add the dates that shaped your year — birthdays, milestones, the day everything changed.
+        </p>
+
+        <div id="moments-list" class="moments-list">
+          <!-- Moment cards (mini chrome windows) inserted here by JS -->
+        </div>
+
+        <button class="btn-add-moment" id="btn-add-moment">
+          <span class="add-icon">+</span>
+          <span>ADD ANOTHER MOMENT</span>
+        </button>
+
+        <!-- Suggestion ghost chips -->
+        <div class="suggestions" id="suggestions">
+          <p class="suggestions-label">need ideas? ✦</p>
+          <button class="suggestion-chip" data-desc="A birthday that matters to you">🎂 a birthday</button>
+          <button class="suggestion-chip" data-desc="A milestone you're proud of">🏆 a milestone</button>
+          <button class="suggestion-chip" data-desc="A day that changed everything">💫 a turning point</button>
+        </div>
+
+        <div class="input-bottom-bar">
+          <span class="moment-counter pixel-line" id="moment-counter">0 MOMENTS ADDED</span>
+          <button class="btn-y2k btn-generate" id="btn-generate" disabled>
+            <span class="btn-text">✦ GENERATE ✦</span>
+            <span class="btn-sparkle">♪</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCREEN 3: LOADING / DOWNLOAD WINDOW ========== -->
+  <section id="screen-loading" class="screen">
+    <div class="chrome-window loading-window">
+      <div class="chrome-window-header">
+        <span class="hdr-left">[X]</span>
+        <span class="hdr-title">SYSTEM.EXE — please wait</span>
+        <span class="hdr-right">⚡ ✨</span>
+      </div>
+      <div class="chrome-window-body loading-body">
+        <div class="loading-sparkle-row">
+          <span class="big-sparkle">✦</span>
+          <span class="big-sparkle big-sparkle-2">✧</span>
+          <span class="big-sparkle big-sparkle-3">⭒</span>
+        </div>
+        <p class="loading-text pixel-line" id="loading-text">DOWNLOADING YOUR YEAR... 0%</p>
+        <div class="progress-bar big-progress" id="big-progress">
+          <div class="progress-fill" id="big-progress-fill" style="width: 0%"></div>
+        </div>
+        <p class="loading-substext">please don't close this window ♥</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCREEN 4: STORY RESULTS ========== -->
+  <section id="screen-story" class="screen">
+
+    <!-- Timeline progress dots -->
+    <div class="story-timeline" id="story-timeline">
+      <!-- JS renders timeline dots here -->
+    </div>
+
+    <!-- Story viewport — only one chapter visible at a time -->
+    <div class="story-viewport" id="story-viewport">
+      <!-- JS renders opening, chapter cards, and closing here -->
+    </div>
+
+    <!-- Navigation bar -->
+    <div class="story-nav" id="story-nav">
+      <button class="btn-story-nav btn-prev" id="btn-prev-chapter" disabled>
+        <span>← PREV</span>
+      </button>
+      <span class="chapter-indicator pixel-line" id="chapter-indicator">01 / 05</span>
+      <button class="btn-story-nav btn-next" id="btn-next-chapter">
+        <span>NEXT →</span>
+      </button>
+    </div>
+
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+/* ============================================
+   fridge chef ✿ puppy-productivity design tokens
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Quicksand:wght@400;500;600&family=Nunito:wght@400;500;600&display=swap');
+
+:root {
+  /* === STUDY MODE (lavender productivity — default) === */
+  --study-bg: #C8B6E0;
+  --study-bg-soft: #DCCEED;
+  --study-bg-deep: #A695C7;
+  --study-cream: #FDFBF7;
+  --study-pencil: #F5C264;
+  --study-eraser: #7BA8D9;
+
+  /* === REST MODE (sage meadow — used for loading) === */
+  --rest-bg: #B8D4A8;
+  --rest-bg-soft: #CCE0BF;
+  --rest-bg-deep: #9CBE8C;
+  --rest-cream: #FAF6EC;
+  --rest-toast: #D4B896;
+  --rest-flower: #FFFFFF;
+  --rest-collar: #E8909C;
+
+  /* === SHARED === */
+  --ink: #2A2A2A;
+  --ink-soft: #5A5A5A;
+  --ink-faint: #8A8A8A;
+  --shadow-soft: rgba(42, 42, 42, 0.08);
+  --shadow-press: rgba(42, 42, 42, 0.16);
+
+  /* dynamic background — toggled by mode */
+  --bg: var(--study-bg);
+  --bg-soft: var(--study-bg-soft);
+  --bg-deep: var(--study-bg-deep);
+  --cream: var(--study-cream);
+  --accent: var(--study-pencil);
+  --accent-cool: var(--study-eraser);
+
+  /* radii — generous and rounded everywhere */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --r-pill: 9999px;
+
+  /* spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* line work */
+  --stroke: 2.5px;
+
+  /* type */
+  --font-display: 'Fredoka', 'Quicksand', system-ui, sans-serif;
+  --font-body: 'Nunito', 'Quicksand', system-ui, sans-serif;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 150ms;
+  --t-norm: 280ms;
+  --t-slow: 480ms;
+
+  /* z */
+  --z-decoration: 0;
+  --z-content: 1;
+  --z-modal: 100;
+}
+
+/* === Reset === */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background var(--t-slow) var(--ease);
+}
+
+/* === Mode swap === */
+body.study-mode {
+  --bg: var(--study-bg);
+  --bg-soft: var(--study-bg-soft);
+  --bg-deep: var(--study-bg-deep);
+  --cream: var(--study-cream);
+  --accent: var(--study-pencil);
+  --accent-cool: var(--study-eraser);
+}
+
+body.rest-mode {
+  --bg: var(--rest-bg);
+  --bg-soft: var(--rest-bg-soft);
+  --bg-deep: var(--rest-bg-deep);
+  --cream: var(--rest-cream);
+  --accent: var(--rest-collar);
+  --accent-cool: var(--rest-toast);
+}
+
+/* meadow texture overlay only in Rest Mode */
+body.rest-mode::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-decoration);
+  background-image:
+    radial-gradient(circle at 18% 28%, var(--rest-flower) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 72% 62%, var(--rest-flower) 1px, transparent 2px),
+    radial-gradient(circle at 46% 84%, var(--rest-bg-deep) 2px, transparent 3px),
+    radial-gradient(circle at 88% 18%, var(--rest-flower) 1.2px, transparent 2.2px);
+  background-size: 200px 200px, 240px 240px, 180px 180px, 220px 220px;
+  opacity: 0.7;
+}
+
+/* === Scattered desk decorations === */
+.decoration {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--z-decoration);
+  opacity: 0.55;
+  filter: drop-shadow(0 4px 0 var(--shadow-soft));
+  transition: opacity var(--t-slow) var(--ease);
+}
+
+.decoration--pencil  { width: 90px;  top: 10%;  right: 4%;  transform: rotate(18deg); }
+.decoration--cloud   { width: 110px; top: 4%;   left: 3%;   transform: rotate(-6deg); }
+.decoration--sparkle { width: 50px;  top: 40%;  right: 6%;  transform: rotate(12deg); animation: gentle-spin 22s linear infinite; }
+.decoration--star    { width: 46px;  bottom: 18%; left: 5%; transform: rotate(-12deg); animation: gentle-bob 6s ease-in-out infinite; }
+
+.decoration--flower-1 { width: 42px; top: 14%; left: 6%;  transform: rotate(8deg); display: none; }
+.decoration--flower-2 { width: 40px; bottom: 22%; right: 5%; transform: rotate(-10deg); display: none; }
+
+/* show meadow flowers in rest mode, hide desk objects */
+body.rest-mode .decoration--pencil,
+body.rest-mode .decoration--cloud,
+body.rest-mode .decoration--sparkle,
+body.rest-mode .decoration--star { opacity: 0; }
+
+body.rest-mode .decoration--flower-1,
+body.rest-mode .decoration--flower-2 { display: block; opacity: 0.85; }
+
+@keyframes gentle-spin {
+  from { transform: rotate(12deg); }
+  to   { transform: rotate(372deg); }
+}
+
+@keyframes gentle-bob {
+  0%, 100% { transform: rotate(-12deg) translateY(0); }
+  50%      { transform: rotate(-8deg)  translateY(-6px); }
+}
+
+/* === App container === */
+.app {
+  position: relative;
+  z-index: var(--z-content);
+  max-width: 580px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+  min-height: 100vh;
+}
+
+/* === Utility === */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--bg-deep);
+  border-radius: var(--r-pill);
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
+
+/* === Selection === */
+::selection { background: var(--accent); color: var(--ink); }
+
+/* === View transitions === */
+.view { display: none; }
+.view--active {
+  display: block;
+  animation: fade-in var(--t-norm) var(--ease);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Mobile === */
+@media (max-width: 480px) {
+  .app { padding: var(--space-md) var(--space-md) var(--space-2xl); }
+  .decoration--pencil  { width: 60px; right: 2%; }
+  .decoration--cloud   { width: 80px; left: 0; }
+  .decoration--sparkle { width: 36px; right: 3%; }
+  .decoration--star    { width: 32px; }
+}

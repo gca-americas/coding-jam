@@ -1,0 +1,286 @@
+/* ============================================================
+   Inner Canvas — Layout
+   Cloud-Pup page structure, atmospheric layers
+   "One big soft thing surrounded by sky"
+   ============================================================ */
+
+.app {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---- Ambient Atmospheric Layers ---- */
+
+.ambient-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    /* Secondary peach bloom at bottom-right */
+    background: radial-gradient(ellipse at 70% 80%, rgba(232, 184, 160, 0.2) 0%, transparent 50%);
+    transition: background 2s var(--ease-smooth);
+}
+
+/* Painterly texture overlay — the oil-paint feel */
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+}
+
+.particle-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ---- Cloud Blobs — dreamy background shapes (was nebula) ---- */
+
+.nebula-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.nebula-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0;
+    animation: cloudDrift 25s var(--ease-smooth) infinite;
+}
+
+.nebula-blob:nth-child(1) {
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(184, 205, 232, 0.35) 0%, transparent 70%);
+    top: 5%;
+    right: -10%;
+    animation-delay: 0s;
+    animation-duration: 35s;
+}
+
+.nebula-blob:nth-child(2) {
+    width: 500px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(245, 220, 208, 0.3) 0%, transparent 70%);
+    bottom: 10%;
+    left: -12%;
+    animation-delay: -10s;
+    animation-duration: 40s;
+}
+
+.nebula-blob:nth-child(3) {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(220, 231, 245, 0.25) 0%, transparent 70%);
+    top: 45%;
+    left: 35%;
+    animation-delay: -18s;
+    animation-duration: 32s;
+}
+
+/* ---- Horizon Glow — warm peach glow at bottom ---- */
+
+.horizon-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+        to top,
+        rgba(245, 220, 208, 0.25) 0%,
+        rgba(232, 184, 160, 0.1) 40%,
+        transparent 100%
+    );
+    animation: horizonBreathe 10s var(--ease-smooth) infinite;
+}
+
+.horizon-glow::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(232, 184, 160, 0.2) 20%,
+        rgba(245, 220, 208, 0.3) 50%,
+        rgba(232, 184, 160, 0.2) 80%,
+        transparent 100%
+    );
+}
+
+/* ---- Screens ---- */
+
+.screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s var(--ease-smooth), visibility 1s var(--ease-smooth);
+    z-index: 10;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Entry screen — the sleeping cloud */
+.entry-container {
+    width: 100%;
+    max-width: 640px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Ceremony screen */
+.ceremony-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+/* Reveal screen */
+.reveal-container {
+    width: 100%;
+    max-width: 760px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+}
+
+/* Timeline screen */
+.screen-timeline {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 3rem 2rem;
+}
+
+.timeline-container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding-top: 1rem;
+}
+
+.timeline-title {
+    font-family: 'Fraunces', 'Nunito', serif;
+    font-weight: 500;
+    font-size: 1.75rem;
+    color: var(--ink-deep);
+}
+
+.entries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--ink-whisper);
+    font-family: 'Fraunces', 'Nunito', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+}
+
+/* Timeline toggle button */
+.timeline-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-smooth);
+}
+
+.timeline-toggle:not(.hidden) {
+    opacity: 1;
+}
+
+/* Color wash overlay for reveal — soft cloud wash */
+.color-wash {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+    transition: opacity 1.2s var(--ease-reveal);
+    background: radial-gradient(ellipse at center, var(--dominant-color), transparent 70%);
+}
+
+.color-wash.active {
+    opacity: 0.12;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 768px) {
+    .entry-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .reveal-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .entries-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nebula-blob:nth-child(1) { width: 350px; height: 300px; }
+    .nebula-blob:nth-child(2) { width: 300px; height: 260px; }
+    .nebula-blob:nth-child(3) { width: 250px; height: 250px; }
+}
+
+@media (max-width: 480px) {
+    .entry-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .app-title {
+        font-size: 1.75rem !important;
+    }
+
+    .app-subtitle {
+        font-size: 0.9375rem !important;
+    }
+}

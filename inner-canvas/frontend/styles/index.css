@@ -1,0 +1,131 @@
+/* ============================================================
+   Inner Canvas — Design Tokens & Reset
+   "Cloud-Pup" design system — soft, pillowy, sky-tinted
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;450;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&display=swap');
+
+:root {
+    /* Sky — primary atmosphere */
+    --sky-light: #DCE7F5;
+    --sky-base: #B8CDE8;
+    --sky-deep: #94B0D6;
+
+    /* Warm undertones — the peach bleeding through */
+    --peach-whisper: #F5DCD0;
+    --peach-warm: #E8B8A0;
+
+    /* Cloud — for surfaces, cards, buttons */
+    --cloud-white: #FBFAF7;
+    --cloud-soft: #F0EDE6;
+    --cloud-shadow: #D4CFC4;
+
+    /* The apple — the single warm accent (used sparingly!) */
+    --apple-red: #D4675B;
+    --apple-blush: #E89888;
+    --apple-stem: #8A6B3A;
+
+    /* Text — never pure black */
+    --ink-deep: #3A4A5C;
+    --ink-soft: #6B7A8A;
+    --ink-whisper: #9AA8B5;
+
+    /* Pillow shadows — sky-tinted, layered, diffuse */
+    --pillow-shadow:
+        0 2px 8px rgba(148, 176, 214, 0.15),
+        0 12px 32px rgba(148, 176, 214, 0.18),
+        0 24px 64px rgba(148, 176, 214, 0.12);
+    --pillow-shadow-hover:
+        0 4px 12px rgba(148, 176, 214, 0.18),
+        0 16px 40px rgba(148, 176, 214, 0.22),
+        0 32px 72px rgba(148, 176, 214, 0.15);
+    --pillow-shadow-inset:
+        inset 0 2px 6px rgba(148, 176, 214, 0.12);
+
+    /* Radii — no sharp corners ever */
+    --radius-sm: 16px;
+    --radius-md: 24px;
+    --radius-lg: 32px;
+    --radius-xl: 40px;
+    --radius-pill: 9999px;
+
+    /* Timing — sleepy, gentle */
+    --ease-pillow: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-reveal: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Dynamic ceremony colors (set by JS) */
+    --orb-color-1: var(--sky-deep);
+    --orb-color-2: var(--peach-warm);
+    --orb-color-3: var(--sky-base);
+    --dominant-color: var(--sky-deep);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-weight: 450;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    color: var(--ink-deep);
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* The sky gradient — peach radial over sky-blue */
+    background:
+        radial-gradient(ellipse at 30% 20%, var(--peach-whisper) 0%, transparent 50%),
+        linear-gradient(180deg, var(--sky-light) 0%, var(--sky-base) 100%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3 {
+    font-family: 'Fraunces', 'Nunito', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Selection styling — peachy */
+::selection {
+    background: rgba(232, 184, 160, 0.3);
+    color: var(--ink-deep);
+}
+
+/* Scrollbar — soft and rounded */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cloud-shadow);
+    border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sky-deep);
+}

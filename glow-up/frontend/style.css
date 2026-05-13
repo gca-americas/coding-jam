@@ -1,0 +1,736 @@
+/* ============================================================
+   ✦ GLOW UP — Y2K Dreamcore Design System
+   ============================================================ */
+
+/* --- CSS Variables / Design Tokens --- */
+:root {
+    /* Holographic gradient — primary atmosphere */
+    --hologram-pink: #FFB6E1;
+    --hologram-lavender: #C8B6FF;
+    --hologram-blue: #B8D4FF;
+    --hologram-mint: #B8F2E6;
+    --hologram-peach: #FFD6BA;
+
+    /* Chrome UI */
+    --chrome-light: #F5F5FA;
+    --chrome-base: #D4D4E0;
+    --chrome-shadow: #8A8AA0;
+    --chrome-border: #4A4A6A;
+
+    /* Accent / signal */
+    --neon-magenta: #FF3DC7;
+    --neon-cyan: #3DDCFF;
+    --soft-cream: #FFF9E6;
+    --deep-violet: #2A1F4A;
+
+    /* Sparkle */
+    --sparkle-tint: rgba(255, 182, 225, 0.4);
+
+    /* Typography */
+    --font-display: 'Cormorant Garamond', serif;
+    --font-system: 'VT323', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    color: var(--deep-violet);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    background: linear-gradient(135deg,
+        var(--hologram-pink) 0%,
+        var(--hologram-lavender) 35%,
+        var(--hologram-blue) 70%,
+        var(--hologram-mint) 100%);
+    background-size: 400% 400%;
+    animation: holoShift 20s ease infinite;
+}
+
+/* Sparkle texture overlay on body */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 25% 25%, var(--sparkle-tint) 1px, transparent 2px),
+        radial-gradient(circle at 75% 75%, var(--sparkle-tint) 1px, transparent 2px),
+        radial-gradient(circle at 50% 10%, rgba(184,212,255,0.3) 1px, transparent 2px);
+    background-size: 40px 40px, 60px 60px, 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: screen;
+}
+
+@keyframes holoShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Sparkle Particles (JS-generated) --- */
+.sparkle-field {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+}
+
+.sparkle-dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkleFloat 5s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+    0%   { opacity: 0; transform: translateY(0) scale(0) rotate(0deg); }
+    20%  { opacity: 1; transform: translateY(-30px) scale(1) rotate(45deg); }
+    80%  { opacity: 0.5; transform: translateY(-120px) scale(0.7) rotate(180deg); }
+    100% { opacity: 0; transform: translateY(-180px) scale(0) rotate(360deg); }
+}
+
+/* --- Chrome Window System (THE signature motif) --- */
+.chrome-window {
+    background: rgba(245, 245, 250, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--chrome-border);
+    border-radius: 8px;
+    box-shadow:
+        inset 1px 1px 0 var(--chrome-light),
+        inset -1px -1px 0 var(--chrome-shadow),
+        0 8px 24px rgba(74, 74, 106, 0.25);
+    overflow: hidden;
+    position: relative;
+}
+
+.chrome-window-header {
+    background: linear-gradient(180deg, var(--chrome-light) 0%, var(--chrome-base) 100%);
+    border-bottom: 1px solid var(--chrome-border);
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-system);
+    font-size: 14px;
+    color: var(--deep-violet);
+    user-select: none;
+}
+
+.chrome-title { letter-spacing: 0.03em; }
+.chrome-icons { display: flex; gap: 6px; align-items: center; }
+.chrome-close { color: var(--neon-magenta); cursor: pointer; }
+
+.chrome-window-body {
+    padding: var(--space-lg);
+}
+
+.mini-header {
+    padding: 3px 8px;
+    font-size: 12px;
+}
+
+/* --- Screen System --- */
+.screen {
+    display: none;
+    min-height: 100dvh;
+    position: relative;
+    z-index: 1;
+    padding: var(--space-lg) var(--space-md);
+    animation: screenFadeIn 0.6s ease forwards;
+}
+
+.screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes screenFadeIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* --- Typography --- */
+.logo {
+    font-family: var(--font-display);
+    font-size: 3.2rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.08em;
+    color: var(--deep-violet);
+    text-shadow: -2px 0 0 var(--neon-magenta), 2px 0 0 var(--neon-cyan);
+    margin-bottom: var(--space-sm);
+}
+
+.logo-small {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--deep-violet);
+    text-shadow: -1px 0 0 var(--neon-magenta), 1px 0 0 var(--neon-cyan);
+}
+
+.tagline {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-align: center;
+    color: var(--deep-violet);
+    opacity: 0.7;
+    letter-spacing: 0.04em;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--deep-violet);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    letter-spacing: 0.04em;
+}
+
+.tip {
+    text-align: center;
+    font-family: var(--font-system);
+    font-size: 14px;
+    color: var(--deep-violet);
+    opacity: 0.6;
+    margin-top: var(--space-md);
+    letter-spacing: 0.03em;
+}
+
+/* --- Buttons (Chrome Style) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 12px 24px;
+    border: 1.5px solid var(--chrome-border);
+    border-radius: 6px;
+    font-family: var(--font-system);
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-chrome {
+    background: linear-gradient(180deg, var(--chrome-light) 0%, var(--chrome-base) 100%);
+    color: var(--deep-violet);
+    box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.6),
+        inset -1px -1px 0 var(--chrome-shadow),
+        0 2px 8px rgba(74,74,106,0.2);
+}
+
+.btn-chrome:hover {
+    background: linear-gradient(110deg,
+        var(--hologram-pink), var(--hologram-lavender),
+        var(--hologram-blue), var(--hologram-mint),
+        var(--hologram-pink));
+    background-size: 300% 100%;
+    animation: shimmerBtn 3s ease-in-out infinite;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(255,182,225,0.4);
+}
+
+.btn-chrome-secondary {
+    background: rgba(245, 245, 250, 0.4);
+    color: var(--deep-violet);
+    backdrop-filter: blur(8px);
+}
+
+.btn-chrome-secondary:hover {
+    background: rgba(245, 245, 250, 0.7);
+    transform: translateY(-2px);
+}
+
+.btn-glow {
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 18px;
+    margin-top: var(--space-lg);
+    background: linear-gradient(110deg,
+        var(--hologram-pink), var(--hologram-lavender),
+        var(--hologram-blue), var(--hologram-mint),
+        var(--hologram-pink));
+    background-size: 300% 100%;
+    animation: shimmerBtn 4s ease-in-out infinite;
+    color: var(--deep-violet);
+    border: 2px solid var(--chrome-border);
+    box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.5),
+        0 4px 20px rgba(200,182,255,0.4);
+}
+
+.btn-glow.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    animation: none;
+    transform: none;
+    box-shadow: none;
+    background: var(--chrome-base);
+}
+
+.btn-glow:not(.disabled):hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(255,61,199,0.3);
+}
+
+@keyframes shimmerBtn {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--deep-violet);
+    font-family: var(--font-system);
+    font-size: 15px;
+    cursor: pointer;
+    padding: var(--space-sm) 0;
+    margin-bottom: var(--space-md);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    letter-spacing: 0.03em;
+}
+
+.btn-back:hover { opacity: 1; color: var(--neon-magenta); }
+
+/* --- Screen 1: Upload --- */
+.hero-window {
+    margin-bottom: -20px;
+    z-index: 1;
+    position: relative;
+}
+
+.hero-body {
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+}
+
+.upload-window {
+    position: relative;
+    z-index: 2;
+    margin-left: 20px;
+}
+
+.upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-lg);
+    border: 2px dashed var(--chrome-shadow);
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255,182,225,0.08);
+}
+
+.upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--neon-magenta);
+    background: rgba(255,182,225,0.15);
+    transform: translateY(-2px);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    animation: uploadBounce 2.5s ease infinite;
+}
+
+@keyframes uploadBounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+.upload-text {
+    font-family: var(--font-system);
+    font-size: 18px;
+    color: var(--deep-violet);
+    margin-bottom: var(--space-xs);
+    letter-spacing: 0.05em;
+}
+
+.upload-subtext {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--chrome-shadow);
+}
+
+.upload-zone .btn { margin-top: var(--space-md); }
+
+/* --- Selfie Preview --- */
+.selfie-preview { text-align: center; }
+
+.selfie-preview img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 6px;
+    border: 2px solid var(--chrome-border);
+    box-shadow:
+        inset 1px 1px 0 var(--chrome-light),
+        0 6px 20px rgba(74,74,106,0.25);
+    margin-bottom: var(--space-lg);
+}
+
+.preview-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+.hidden { display: none !important; }
+
+/* --- Screen 2: Gender Cards --- */
+.gender-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+}
+
+.gender-card {
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    font: inherit;
+    text-align: center;
+}
+
+.gender-card .card-body {
+    padding: var(--space-lg) var(--space-md);
+}
+
+.gender-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+        inset 1px 1px 0 var(--chrome-light),
+        0 12px 32px rgba(255,61,199,0.25);
+}
+
+.gender-card.selected {
+    border-color: var(--neon-magenta);
+    box-shadow:
+        0 0 0 2px var(--neon-magenta),
+        0 0 30px rgba(255,61,199,0.2);
+}
+
+.gender-card.selected .mini-header {
+    background: linear-gradient(180deg, var(--hologram-pink) 0%, var(--hologram-lavender) 100%);
+}
+
+.gender-icon { font-size: 2.8rem; margin-bottom: var(--space-sm); }
+
+.gender-label {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--deep-violet);
+    margin-bottom: var(--space-xs);
+}
+
+.gender-hint {
+    font-family: var(--font-system);
+    font-size: 12px;
+    color: var(--chrome-shadow);
+    line-height: 1.5;
+}
+
+/* --- Screen 3: Presets --- */
+.presets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.presets-header .section-title {
+    text-align: left;
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.selfie-mini {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--neon-magenta);
+    box-shadow: 0 0 12px rgba(255,61,199,0.3);
+    flex-shrink: 0;
+}
+
+.selfie-mini img { width: 100%; height: 100%; object-fit: cover; }
+
+.presets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.preset-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-md);
+    background: rgba(245, 245, 250, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid var(--chrome-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        inset 1px 1px 0 var(--chrome-light),
+        inset -1px -1px 0 var(--chrome-shadow);
+    font: inherit;
+}
+
+.preset-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(200,182,255,0.35);
+    border-color: var(--hologram-lavender);
+}
+
+.preset-card.selected {
+    border-color: var(--neon-magenta);
+    background: linear-gradient(135deg, rgba(255,182,225,0.25), rgba(200,182,255,0.25));
+    box-shadow: 0 0 0 2px var(--neon-magenta), 0 0 24px rgba(255,61,199,0.2);
+    animation: presetPop 0.4s ease forwards;
+}
+
+@keyframes presetPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.preset-emoji { font-size: 2.5rem; margin-bottom: var(--space-sm); }
+
+.preset-name {
+    font-family: var(--font-system);
+    font-size: 16px;
+    color: var(--deep-violet);
+    text-align: center;
+    letter-spacing: 0.03em;
+}
+
+/* --- Screen 4: Loading (Download Bar) --- */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: var(--space-lg);
+}
+
+.loading-window { width: 100%; }
+
+.loading-body {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+.loading-sparkles {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-bottom: var(--space-xl);
+}
+
+.spark {
+    font-size: 2rem;
+    animation: sparkBounce 1.5s ease infinite;
+}
+.spark:nth-child(2) { animation-delay: 0.3s; }
+.spark:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes sparkBounce {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+    50%      { transform: translateY(-20px) scale(1.3); opacity: 1; }
+}
+
+.loading-title {
+    font-family: var(--font-system);
+    font-size: 24px;
+    color: var(--deep-violet);
+    margin-bottom: var(--space-lg);
+    letter-spacing: 0.06em;
+}
+
+.loading-quote {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep-violet);
+    opacity: 0.7;
+    max-width: 320px;
+    margin: 0 auto;
+    line-height: 1.5;
+    min-height: 3em;
+    transition: opacity 0.4s ease;
+}
+
+/* The floating download bar — signature Y2K element */
+.download-window {
+    width: 85%;
+    max-width: 320px;
+    margin-top: -8px;
+    margin-left: auto;
+    margin-right: 10%;
+    animation: downloadFloat 3s ease-in-out infinite;
+}
+
+@keyframes downloadFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+
+.download-body { padding: var(--space-sm) var(--space-md) var(--space-md); }
+
+.y2k-progress-bar {
+    width: 100%;
+    height: 18px;
+    background: var(--chrome-base);
+    border: 1.5px solid var(--chrome-border);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: inset 1px 1px 3px rgba(74,74,106,0.3);
+}
+
+.y2k-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,
+        var(--hologram-pink),
+        var(--hologram-lavender),
+        var(--hologram-blue),
+        var(--hologram-mint),
+        var(--hologram-pink));
+    background-size: 300% 100%;
+    animation: holoProgress 3s linear infinite;
+    transition: width 0.5s ease;
+    border-radius: 1px;
+}
+
+@keyframes holoProgress {
+    0%   { background-position: 300% 0; }
+    100% { background-position: 0% 0; }
+}
+
+/* --- Screen 5: Reveal --- */
+.reveal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+}
+
+.result-container {
+    position: relative;
+    margin-bottom: var(--space-lg);
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid var(--chrome-border);
+    box-shadow: 0 8px 32px rgba(74,74,106,0.3);
+}
+
+.result-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Stylist note — overlapping window */
+.stylist-window {
+    margin-top: -16px;
+    margin-left: 24px;
+    position: relative;
+    z-index: 2;
+    animation: slideUp 0.6s ease 0.3s both;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.stylist-note {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--deep-violet);
+    font-style: italic;
+}
+
+/* --- Reveal Actions --- */
+.reveal-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-top: var(--space-lg);
+}
+
+.reveal-actions .btn { flex: 1; }
+
+/* --- Holographic Shimmer Effect (applied via JS class) --- */
+.holo-shimmer {
+    background: linear-gradient(110deg,
+        var(--hologram-pink), var(--hologram-lavender),
+        var(--hologram-blue), var(--hologram-mint),
+        var(--hologram-pink));
+    background-size: 300% 100%;
+    animation: shimmer 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Responsive --- */
+@media (max-width: 420px) {
+    .logo { font-size: 2.4rem; }
+    .section-title { font-size: 1.3rem; }
+    .gender-grid, .presets-grid { gap: var(--space-sm); }
+    .upload-window { margin-left: 10px; }
+    .stylist-window { margin-left: 10px; }
+    .download-window { width: 90%; margin-right: 5%; }
+    .chrome-window-body { padding: var(--space-md); }
+}
+
+@media (min-width: 768px) {
+    .container { max-width: 540px; }
+    .logo { font-size: 3.6rem; }
+}

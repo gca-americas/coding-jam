@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BulletProof — AI-powered resume tailoring. Paste your resume and a job posting, get perfectly tailored bullet points in seconds.">
+    <title>BulletProof — Your Resume, Sharpened by AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main App Container -->
+    <div id="app" class="app">
+
+        <!-- ============================================ -->
+        <!-- INPUT STATE                                  -->
+        <!-- ============================================ -->
+        <div id="input-state" class="state active">
+            <!-- Header -->
+            <header class="header">
+                <div class="logo">
+                    <span class="logo-icon">◆</span>
+                    <span class="logo-text">BulletProof</span>
+                </div>
+                <p class="tagline">Your resume, sharpened by AI</p>
+            </header>
+
+            <!-- Hero -->
+            <div class="hero">
+                <h1 class="hero-title">
+                    <span class="hero-word">Paste.</span>
+                    <span class="hero-word">Click.</span>
+                    <span class="hero-word hero-word--accent">Impress.</span>
+                </h1>
+                <p class="hero-subtitle">AI-tailored resume bullets in seconds</p>
+            </div>
+
+            <!-- Input Panels -->
+            <div class="panels">
+                <div class="panel" id="panel-resume">
+                    <div class="panel-header">
+                        <label class="panel-label" for="resume-input">
+                            <span class="panel-icon">📄</span>
+                            Paste Your Resume
+                        </label>
+                        <span class="char-count" id="resume-count"></span>
+                    </div>
+                    <textarea
+                        id="resume-input"
+                        class="panel-textarea"
+                        placeholder="Paste your resume here — work experience, skills, education, achievements..."
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+
+                <div class="panel" id="panel-job">
+                    <div class="panel-header">
+                        <label class="panel-label" for="job-input">
+                            <span class="panel-icon">💼</span>
+                            Paste the Job Posting
+                        </label>
+                        <span class="char-count" id="job-count"></span>
+                    </div>
+                    <textarea
+                        id="job-input"
+                        class="panel-textarea"
+                        placeholder="Paste the full job description here — requirements, responsibilities, qualifications..."
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="cta-container">
+                <button id="sharpen-btn" class="btn-primary" disabled>
+                    <span class="btn-sparkle">✨</span>
+                    <span class="btn-text">Sharpen My Resume</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- LOADING STATE                                -->
+        <!-- ============================================ -->
+        <div id="loading-state" class="state">
+            <div class="loading-container">
+                <!-- Editorial Loading Animation -->
+                <div class="editorial-loader">
+                    <div class="ink-line"></div>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step" id="step-1">
+                        <span class="step-icon">◌</span>
+                        <span class="step-text">Reading your experience</span>
+                    </div>
+                    <div class="step" id="step-2">
+                        <span class="step-icon">◌</span>
+                        <span class="step-text">Analyzing the role requirements</span>
+                    </div>
+                    <div class="step" id="step-3">
+                        <span class="step-icon">◌</span>
+                        <span class="step-text">Crafting tailored bullets</span>
+                    </div>
+                </div>
+
+                <!-- Skeleton Cards -->
+                <div class="skeleton-cards">
+                    <div class="skeleton-card"><div class="shimmer"></div></div>
+                    <div class="skeleton-card"><div class="shimmer"></div></div>
+                    <div class="skeleton-card"><div class="shimmer"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- RESULTS STATE                                -->
+        <!-- ============================================ -->
+        <div id="results-state" class="state">
+            <!-- Results Header -->
+            <header class="header results-header">
+                <div class="logo">
+                    <span class="logo-icon">◆</span>
+                    <span class="logo-text">BulletProof</span>
+                </div>
+            </header>
+
+            <div class="results-layout">
+                <!-- Main Results -->
+                <div class="results-main">
+                    <!-- Score Section -->
+                    <div class="score-section">
+                        <div class="score-ring-container">
+                            <svg class="score-ring" viewBox="0 0 140 140">
+                                <circle class="score-ring-bg" cx="70" cy="70" r="60" />
+                                <circle class="score-ring-fill" cx="70" cy="70" r="60" id="score-fill" />
+                            </svg>
+                            <div class="score-value" id="score-value">0</div>
+                            <div class="score-label">Match</div>
+                        </div>
+                        <div class="keyword-badges" id="keyword-badges"></div>
+                    </div>
+
+                    <!-- Bullet Cards -->
+                    <div class="bullet-cards" id="bullet-cards"></div>
+
+                    <!-- Action Bar -->
+                    <div class="action-bar">
+                        <button class="btn-primary" id="copy-all-btn">
+                            <span class="btn-sparkle">📋</span>
+                            <span class="btn-text">Copy All Bullets</span>
+                        </button>
+                        <button class="btn-ghost" id="try-another-btn">
+                            Try Another
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Keyword Sidebar -->
+                <aside class="keyword-sidebar" id="keyword-sidebar">
+                    <h3 class="sidebar-title">Keyword Analysis</h3>
+                    <div class="keyword-group">
+                        <h4 class="keyword-group-label">✅ Matched</h4>
+                        <div class="keyword-list" id="keywords-found"></div>
+                    </div>
+                    <div class="keyword-group">
+                        <h4 class="keyword-group-label">❌ Missing</h4>
+                        <div class="keyword-list" id="keywords-missing"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ERROR STATE                                  -->
+        <!-- ============================================ -->
+        <div id="error-state" class="state">
+            <div class="error-container">
+                <div class="error-icon">⚠️</div>
+                <h2 class="error-title">Something went wrong</h2>
+                <p class="error-message" id="error-message"></p>
+                <button class="btn-primary" id="error-retry-btn">
+                    <span class="btn-text">Try Again</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-text">Copied!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

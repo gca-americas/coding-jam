@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Chat — Bring Characters to Life ✨</title>
+    <meta name="description" content="Create an anime character and have a conversation with them. Powered by AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Anime background image -->
+    <div class="anime-bg" aria-hidden="true">
+        <img src="anime-bg.png" alt="" />
+    </div>
+
+    <!-- Floating particles (sakura petals) -->
+    <canvas id="sakura-canvas" aria-hidden="true"></canvas>
+
+    <!-- ========== SCREEN 1: CHARACTER CREATION ========== -->
+    <div id="screen-create" class="screen active">
+        <div class="create-card anime-card">
+            <div class="create-header">
+                <div class="create-icon" aria-hidden="true">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="22" fill="url(#iconGrad)" opacity="0.15"/>
+                        <path d="M24 8C15.2 8 8 15.2 8 24s7.2 16 16 16 16-7.2 16-16S32.8 8 24 8z" fill="none" stroke="url(#iconGrad)" stroke-width="2"/>
+                        <circle cx="18" cy="22" r="2.5" fill="#5b7fc7"/>
+                        <circle cx="30" cy="22" r="2.5" fill="#5b7fc7"/>
+                        <path d="M19 30c1.5 2 3 3 5 3s3.5-1 5-3" stroke="#e88ca5" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M14 16c2-3 5-5 10-5s8 2 10 5" stroke="url(#iconGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                        <defs>
+                            <linearGradient id="iconGrad" x1="8" y1="8" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#7ba4d9"/>
+                                <stop offset="100%" stop-color="#e88ca5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1>Create Your Character</h1>
+                <p class="create-subtitle">Give them a name, a soul, and a secret.</p>
+            </div>
+
+            <form id="character-form" novalidate>
+                <div class="form-group">
+                    <label for="char-name">
+                        <span class="label-icon">🌸</span> Name
+                    </label>
+                    <input
+                        type="text"
+                        id="char-name"
+                        placeholder="Chef Marta"
+                        maxlength="50"
+                        required
+                        autocomplete="off"
+                    >
+                    <span class="char-count" id="name-count">0 / 50</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="char-personality">
+                        <span class="label-icon">✨</span> Personality
+                    </label>
+                    <textarea
+                        id="char-personality"
+                        placeholder="A fiery Italian grandmother who judges everyone by their pasta technique. She speaks in a mix of English and Italian, has zero patience for microwaves, and believes every problem can be solved with olive oil and shouting."
+                        maxlength="500"
+                        rows="4"
+                        required
+                    ></textarea>
+                    <span class="char-count" id="personality-count">0 / 500</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="char-neversay">
+                        <span class="label-icon">🚫</span> Something they would <strong>NEVER</strong> say
+                    </label>
+                    <input
+                        type="text"
+                        id="char-neversay"
+                        placeholder="I don't care how the pasta tastes."
+                        maxlength="200"
+                        required
+                        autocomplete="off"
+                    >
+                    <span class="char-count" id="neversay-count">0 / 200</span>
+                </div>
+
+                <button type="submit" id="create-btn" class="btn-primary" disabled>
+                    <span class="btn-text">✨ Bring Them to Life</span>
+                    <span class="btn-loading" aria-hidden="true">
+                        <span class="dot-bounce"></span>
+                        <span class="dot-bounce"></span>
+                        <span class="dot-bounce"></span>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== SCREEN 2: CHAT WINDOW ========== -->
+    <div id="screen-chat" class="screen">
+        <div class="chat-container anime-card">
+            <!-- Chat header -->
+            <header class="chat-header">
+                <div class="chat-header-left">
+                    <span class="chat-avatar" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" fill="#e8f0fe"/>
+                            <circle cx="18" cy="22" r="2" fill="#5b7fc7"/>
+                            <circle cx="30" cy="22" r="2" fill="#5b7fc7"/>
+                            <path d="M19 30c1.5 2 3 3 5 3s3.5-1 5-3" stroke="#e88ca5" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <h2 id="chat-char-name">Character Name</h2>
+                </div>
+                <button id="start-over-btn" class="btn-ghost" type="button">
+                    <span>↺</span> Start Over
+                </button>
+            </header>
+
+            <!-- Messages area -->
+            <div class="chat-messages" id="chat-messages" role="log" aria-live="polite">
+                <!-- Messages injected by JS -->
+            </div>
+
+            <!-- Input area -->
+            <div class="chat-input-area" id="chat-input-area">
+                <div class="message-progress" id="message-progress">
+                    <!-- 5 dots injected by JS -->
+                </div>
+                <form id="chat-form" class="chat-form" autocomplete="off">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                        required
+                    >
+                    <button type="submit" id="send-btn" class="btn-send" disabled aria-label="Send message">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Conversation complete overlay -->
+            <div class="chat-complete" id="chat-complete">
+                <div class="complete-content">
+                    <div class="complete-icon">🌸</div>
+                    <h3>おしまい！</h3>
+                    <p class="complete-sub">That's a wrap!</p>
+                    <p>You just had a conversation with a character you created.</p>
+                    <button id="new-character-btn" class="btn-primary" type="button">
+                        Create Someone New
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti canvas -->
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>

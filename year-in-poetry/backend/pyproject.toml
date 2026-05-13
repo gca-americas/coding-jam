@@ -1,0 +1,11 @@
+[project]
+name = "year-in-poetry"
+version = "0.1.0"
+description = "AI-curated calendar that turns meaningful dates into poetry"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "google-genai",
+    "python-dotenv",
+]

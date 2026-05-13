@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inner Canvas — Write how you feel. AI creates art that captures your mood and asks a gentle reflection question.">
+    <title>Inner Canvas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Ambient background layers -->
+    <div id="ambient-layer" class="ambient-layer"></div>
+    <div id="grain-overlay" class="grain-overlay"></div>
+
+    <!-- Cloud blobs — soft floating shapes -->
+    <div class="nebula-layer">
+        <div class="nebula-blob"></div>
+        <div class="nebula-blob"></div>
+        <div class="nebula-blob"></div>
+    </div>
+
+    <!-- Horizon glow — warm peach base -->
+    <div class="horizon-glow"></div>
+
+    <!-- Particle canvas -->
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <!-- Main app container -->
+    <main id="app" class="app">
+
+        <!-- Screen 1: Cozy Landing -->
+        <section id="screen-entry" class="screen screen-entry active">
+            <div class="entry-container">
+                <h1 class="app-title">Inner Canvas</h1>
+                <p class="app-subtitle">Write something soft. Watch it bloom. ☁️</p>
+                <!-- Legacy greeting (hidden by CSS, kept for JS compat) -->
+                <h2 id="greeting" class="greeting"></h2>
+                <div id="text-area-wrapper" class="text-area-wrapper">
+                    <textarea
+                        id="journal-input"
+                        class="journal-input"
+                        placeholder="How are you feeling right now?"
+                        rows="1"
+                        autofocus
+                    ></textarea>
+                    <span id="word-count" class="word-count"></span>
+                </div>
+                <button id="submit-btn" class="submit-btn hidden">
+                    <span class="btn-text">Create</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Screen 2: Cloud Ceremony -->
+        <section id="screen-ceremony" class="screen screen-ceremony">
+            <div class="ceremony-container">
+                <div id="orb-container" class="orb-container">
+                    <div id="orb" class="orb"></div>
+                    <div id="ripple-container" class="ripple-container"></div>
+                </div>
+                <p id="status-text" class="status-text"></p>
+            </div>
+        </section>
+
+        <!-- Screen 3: Reveal -->
+        <section id="screen-reveal" class="screen screen-reveal">
+            <div class="reveal-container">
+                <div id="color-wash" class="color-wash"></div>
+                <div id="art-frame" class="art-frame">
+                    <img id="art-image" class="art-image" alt="" />
+                    <svg id="border-trace" class="border-trace" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="0" y="0" width="100" height="100" fill="none" stroke="currentColor" stroke-width="0.5" pathLength="100" />
+                    </svg>
+                </div>
+                <div id="divider-line" class="divider-line"></div>
+                <p id="reflection-question" class="reflection-question"></p>
+                <p id="attribution" class="attribution">— your inner canvas</p>
+                <div id="action-buttons" class="action-buttons">
+                    <button id="start-fresh-btn" class="ghost-btn">☁️ Start Fresh</button>
+                    <button id="save-btn" class="ghost-btn">🐾 Save This</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline (Phase 2) -->
+        <nav id="timeline-toggle" class="timeline-toggle hidden">
+            <button id="show-timeline-btn" class="ghost-btn small">☁️ Journal</button>
+        </nav>
+
+        <section id="screen-timeline" class="screen screen-timeline">
+            <div class="timeline-container">
+                <div class="timeline-header">
+                    <h2 class="timeline-title">Your Inner Canvas</h2>
+                    <button id="close-timeline-btn" class="ghost-btn small">✕ Close</button>
+                </div>
+                <div id="entries-grid" class="entries-grid"></div>
+                <div id="empty-state" class="empty-state">
+                    <p>Your gallery is resting — waiting for its first gentle piece. ☁️</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/ceremony.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

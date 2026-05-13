@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="fridge chef — a cozy little app that turns whatever's in your fridge into a tiny recipe.">
+  <title>fridge chef ✿ what's in your fridge?</title>
+
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><circle cx=%2232%22 cy=%2236%22 r=%2222%22 fill=%22%23FDFBF7%22 stroke=%22%232A2A2A%22 stroke-width=%223%22/><circle cx=%2226%22 cy=%2233%22 r=%222%22 fill=%22%232A2A2A%22/><circle cx=%2238%22 cy=%2233%22 r=%222%22 fill=%22%232A2A2A%22/><ellipse cx=%2232%22 cy=%2240%22 rx=%222.5%22 ry=%222%22 fill=%22%232A2A2A%22/></svg>">
+</head>
+<body class="study-mode" id="body">
+
+  <!-- Scattered desk decorations (Study Mode) -->
+  <svg class="decoration decoration--pencil" viewBox="0 0 60 60" aria-hidden="true">
+    <g transform="rotate(28 30 30)">
+      <rect x="8" y="26" width="32" height="10" rx="2" fill="#F5C264" stroke="#2A2A2A" stroke-width="2.5"/>
+      <rect x="4" y="26" width="6" height="10" rx="1.5" fill="#7BA8D9" stroke="#2A2A2A" stroke-width="2.5"/>
+      <path d="M40 26 L52 31 L40 36 Z" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M48 28.5 L52 31 L48 33.5 Z" fill="#2A2A2A"/>
+    </g>
+  </svg>
+
+  <svg class="decoration decoration--cloud" viewBox="0 0 80 50" aria-hidden="true">
+    <path d="M18 38 Q6 38 8 28 Q4 16 18 18 Q22 6 34 10 Q40 4 50 10 Q64 8 64 22 Q76 24 70 34 Q72 42 60 40 L18 40 Z"
+      fill="#FDFBF7" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="decoration decoration--sparkle" viewBox="0 0 40 40" aria-hidden="true">
+    <path d="M20 4 L23 17 L36 20 L23 23 L20 36 L17 23 L4 20 L17 17 Z"
+      fill="#F5C264" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+
+  <svg class="decoration decoration--star" viewBox="0 0 36 36" aria-hidden="true">
+    <path d="M18 4 L21 14 L31 14 L23 20 L26 30 L18 24 L10 30 L13 20 L5 14 L15 14 Z"
+      fill="#7BA8D9" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- Scattered meadow decorations (Rest Mode) -->
+  <svg class="decoration decoration--flower-1" viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="20" cy="9" r="5.5" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="31" cy="20" r="5.5" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="20" cy="31" r="5.5" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="9" cy="20" r="5.5" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="20" cy="20" r="4.5" fill="#F5C264" stroke="#2A2A2A" stroke-width="2.5"/>
+  </svg>
+
+  <svg class="decoration decoration--flower-2" viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="20" cy="9" r="5.5" fill="#E8909C" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="31" cy="20" r="5.5" fill="#E8909C" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="20" cy="31" r="5.5" fill="#E8909C" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="9" cy="20" r="5.5" fill="#E8909C" stroke="#2A2A2A" stroke-width="2.5"/>
+    <circle cx="20" cy="20" r="4.5" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+  </svg>
+
+  <div class="app" id="app">
+
+    <!-- ========== HOME VIEW ========== -->
+    <div class="view view--active" id="view-home">
+
+      <!-- Header — chubby puppy mascot in a chef hat -->
+      <header class="header sticker-card sticker-card--tilt-left">
+        <svg class="header__mascot" viewBox="0 0 120 120" aria-hidden="true">
+          <!-- chef hat -->
+          <ellipse cx="60" cy="22" rx="22" ry="11" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="3"/>
+          <ellipse cx="48" cy="18" rx="9" ry="7" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="3"/>
+          <ellipse cx="72" cy="18" rx="9" ry="7" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="3"/>
+          <rect x="38" y="26" width="44" height="10" rx="3" fill="#F5C264" stroke="#2A2A2A" stroke-width="3"/>
+          <!-- ears (toast colored) -->
+          <ellipse cx="28" cy="56" rx="8" ry="14" fill="#D4B896" stroke="#2A2A2A" stroke-width="3" transform="rotate(-18 28 56)"/>
+          <ellipse cx="92" cy="56" rx="8" ry="14" fill="#D4B896" stroke="#2A2A2A" stroke-width="3" transform="rotate(18 92 56)"/>
+          <!-- head -->
+          <ellipse cx="60" cy="68" rx="28" ry="26" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="3"/>
+          <!-- glasses -->
+          <circle cx="49" cy="64" r="7" fill="none" stroke="#2A2A2A" stroke-width="2.5"/>
+          <circle cx="71" cy="64" r="7" fill="none" stroke="#2A2A2A" stroke-width="2.5"/>
+          <line x1="56" y1="64" x2="64" y2="64" stroke="#2A2A2A" stroke-width="2.5"/>
+          <!-- eyes inside glasses -->
+          <circle cx="49" cy="64" r="2" fill="#2A2A2A"/>
+          <circle cx="71" cy="64" r="2" fill="#2A2A2A"/>
+          <!-- cheeks -->
+          <circle cx="40" cy="76" r="4" fill="#E8909C" opacity="0.55"/>
+          <circle cx="80" cy="76" r="4" fill="#E8909C" opacity="0.55"/>
+          <!-- snout + nose -->
+          <ellipse cx="60" cy="78" rx="9" ry="6" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="2.5"/>
+          <ellipse cx="60" cy="74" rx="3" ry="2.5" fill="#2A2A2A"/>
+          <!-- mouth -->
+          <path d="M55 81 Q60 86 65 81" stroke="#2A2A2A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+
+        <h1 class="header__title">fridge chef</h1>
+        <p class="header__subtitle">a tiny app for cozy cooking — tell us what you've got and we'll make it work ✿</p>
+      </header>
+
+      <!-- Ingredient input — sticker card with pastel pill tags -->
+      <section class="input-section" aria-label="ingredient input">
+        <article class="sticker-card sticker-card--tilt-right" id="input-container">
+          <h2 class="sticker-card__eyebrow">what's in your fridge?</h2>
+          <textarea
+            id="ingredient-input"
+            class="puppy-textarea"
+            placeholder="chicken thighs, lemon, garlic, rice, soy sauce..."
+            rows="3"
+            aria-describedby="input-hint"
+          ></textarea>
+          <div class="tags-area" id="tags-area" aria-label="parsed ingredients"></div>
+          <p id="input-hint" class="sr-only">type your ingredients separated by commas. press enter to add.</p>
+        </article>
+      </section>
+
+      <!-- Mode chips — small sticker pills -->
+      <div class="mode-chips" id="mode-chips" role="group" aria-label="recipe modes">
+        <button class="puppy-chip" data-mode="quick" id="chip-quick">
+          <span class="puppy-chip__dot puppy-chip__dot--quick"></span>
+          <span>quick</span>
+        </button>
+        <button class="puppy-chip" data-mode="grandma" id="chip-grandma">
+          <span class="puppy-chip__dot puppy-chip__dot--grandma"></span>
+          <span>grandma</span>
+        </button>
+        <button class="puppy-chip" data-mode="budget" id="chip-budget">
+          <span class="puppy-chip__dot puppy-chip__dot--budget"></span>
+          <span>budget</span>
+        </button>
+        <button class="puppy-chip" data-mode="healthy" id="chip-healthy">
+          <span class="puppy-chip__dot puppy-chip__dot--healthy"></span>
+          <span>healthy</span>
+        </button>
+        <button class="puppy-chip" data-mode="fancy" id="chip-fancy">
+          <span class="puppy-chip__dot puppy-chip__dot--fancy"></span>
+          <span>fancy</span>
+        </button>
+      </div>
+
+      <!-- Generate button — primary puppy button with hard shadow -->
+      <button class="puppy-button puppy-button--primary puppy-button--hero" id="generate-btn" disabled>
+        <span>make me a tiny recipe</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="puppy-button__icon" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Recent creations — small sticker stack -->
+      <section class="recent-section" id="recent-section">
+        <h2 class="recent-section__title">recent little creations</h2>
+        <div class="recent-list" id="recent-list">
+          <div class="empty-state" id="empty-state">
+            <svg class="empty-state__art" viewBox="0 0 80 80" aria-hidden="true">
+              <ellipse cx="40" cy="64" rx="28" ry="6" fill="#A695C7" opacity="0.4"/>
+              <path d="M16 38 Q16 26 28 24 Q32 16 40 18 Q48 16 52 24 Q64 26 64 38 L62 56 Q60 62 50 62 L30 62 Q20 62 18 56 Z"
+                fill="#FDFBF7" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round"/>
+              <ellipse cx="32" cy="40" rx="2" ry="2.5" fill="#2A2A2A"/>
+              <ellipse cx="48" cy="40" rx="2" ry="2.5" fill="#2A2A2A"/>
+              <path d="M36 48 Q40 51 44 48" stroke="#2A2A2A" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <p>nothing here yet — let's start something small ✿</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== LOADING VIEW (Rest Mode) ========== -->
+    <div class="view" id="view-loading">
+      <div class="loading-screen">
+
+        <article class="sticker-card sticker-card--rest sticker-card--centered" id="loading-card">
+          <!-- napping puppy mascot — same dog, but cozy -->
+          <svg class="loading__mascot" viewBox="0 0 160 100" aria-hidden="true">
+            <!-- pot -->
+            <ellipse cx="80" cy="78" rx="38" ry="10" fill="#9CBE8C" stroke="#2A2A2A" stroke-width="2.5"/>
+            <path d="M44 78 Q44 56 80 56 Q116 56 116 78" fill="#9CBE8C" stroke="#2A2A2A" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="40" y="50" width="80" height="8" rx="3" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+            <!-- steam -->
+            <path class="steam-curl steam-curl--1" d="M60 46 Q56 38 60 30 Q64 22 60 14" stroke="#FAF6EC" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
+            <path class="steam-curl steam-curl--2" d="M80 46 Q76 36 80 26 Q84 16 80 8" stroke="#FAF6EC" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+            <path class="steam-curl steam-curl--3" d="M100 46 Q96 38 100 30 Q104 22 100 14" stroke="#FAF6EC" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
+            <!-- puppy peeking from behind pot -->
+            <ellipse cx="130" cy="62" rx="14" ry="13" fill="#FAF6EC" stroke="#2A2A2A" stroke-width="2.5"/>
+            <ellipse cx="120" cy="56" rx="4" ry="7" fill="#D4B896" stroke="#2A2A2A" stroke-width="2.5" transform="rotate(-15 120 56)"/>
+            <ellipse cx="140" cy="56" rx="4" ry="7" fill="#D4B896" stroke="#2A2A2A" stroke-width="2.5" transform="rotate(15 140 56)"/>
+            <circle cx="126" cy="62" r="1.5" fill="#2A2A2A"/>
+            <circle cx="134" cy="62" r="1.5" fill="#2A2A2A"/>
+            <ellipse cx="130" cy="68" rx="2" ry="1.5" fill="#2A2A2A"/>
+            <circle cx="118" cy="68" r="2" fill="#E8909C" opacity="0.55"/>
+          </svg>
+
+          <h2 class="loading__title">stirring up something tasty...</h2>
+          <p class="loading__message" id="loading-message">getting the ingredients out ✿</p>
+
+          <div class="loading__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="loading__progress-bar" id="loading-progress-bar"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ========== RECIPE VIEW ========== -->
+    <div class="view" id="view-recipe">
+
+      <!-- Top toolbar -->
+      <div class="recipe-toolbar">
+        <button class="puppy-button puppy-button--icon" id="back-btn" title="back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>back</span>
+        </button>
+        <div class="recipe-toolbar__right">
+          <button class="puppy-button puppy-button--icon" id="save-btn" title="save">
+            <svg id="save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <button class="puppy-button puppy-button--icon" id="share-btn" title="share">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recipe sticker card -->
+      <article class="sticker-card sticker-card--recipe" id="recipe-card">
+
+        <!-- Hero image -->
+        <div class="recipe-image" id="recipe-image-container">
+          <div class="recipe-image__placeholder" id="recipe-image-placeholder">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <ellipse cx="40" cy="58" rx="30" ry="8" fill="#A695C7" opacity="0.4"/>
+              <ellipse cx="40" cy="50" rx="32" ry="10" fill="#FDFBF7" stroke="#2A2A2A" stroke-width="2.5"/>
+              <ellipse cx="40" cy="46" rx="24" ry="6" fill="#F5C264" stroke="#2A2A2A" stroke-width="2.5"/>
+              <path d="M30 32 Q32 22 28 16" stroke="#FDFBF7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              <path d="M40 30 Q42 20 38 14" stroke="#FDFBF7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              <path d="M50 32 Q52 22 48 16" stroke="#FDFBF7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+            </svg>
+          </div>
+          <img class="recipe-image__img" id="recipe-image" src="" alt="" style="display:none;">
+        </div>
+
+        <div class="recipe-card__body">
+          <h2 class="recipe-card__title" id="recipe-title"></h2>
+          <p class="recipe-card__tagline" id="recipe-tagline"></p>
+
+          <!-- Meta sticker pills -->
+          <div class="recipe-card__meta" id="recipe-meta">
+            <span class="meta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="recipe-time"></span>
+            </span>
+            <span class="meta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8z"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+              <span id="recipe-servings"></span>
+            </span>
+            <span class="meta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 21.5 12 17.5 5.5 21.5 7 14.5 2 9.5 9 9 12 2"/></svg>
+              <span id="recipe-difficulty"></span>
+            </span>
+          </div>
+
+          <!-- Grandma story -->
+          <div class="grandma-note" id="grandma-story"></div>
+
+          <!-- Ingredients -->
+          <section class="recipe-section">
+            <h3 class="recipe-section__title">
+              <span class="recipe-section__bullet"></span>
+              <span>ingredients</span>
+            </h3>
+            <ul class="ingredient-list" id="ingredient-list"></ul>
+          </section>
+
+          <!-- Shopping CTA -->
+          <button class="shopping-cta" id="shopping-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span id="shopping-cta-text">tap to copy a tiny shopping list</span>
+          </button>
+
+          <!-- Steps -->
+          <section class="recipe-section">
+            <h3 class="recipe-section__title">
+              <span class="recipe-section__bullet"></span>
+              <span>steps</span>
+            </h3>
+            <ol class="steps-list" id="steps-list"></ol>
+          </section>
+
+          <!-- Actions -->
+          <div class="recipe-actions">
+            <button class="puppy-button puppy-button--primary" id="regenerate-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              <span>try another</span>
+            </button>
+            <button class="puppy-button" id="copy-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>copy</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </div>
+
+  <script src="js/ingredients.js"></script>
+  <script src="js/recipe.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

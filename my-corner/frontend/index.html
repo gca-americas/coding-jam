@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Corner — Create your personal landing page in 60 seconds with AI.">
+  <title>My Corner — Your personal page, instantly</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+</head>
+<body>
+
+  <!-- ========== SCREEN 1: SETUP (Tell us about yourself) ========== -->
+  <section id="screen-setup" class="screen active">
+    <div class="setup-container">
+      <div class="setup-header">
+        <div class="setup-icon">🏠</div>
+        <h1 class="setup-title">My Corner</h1>
+        <p class="setup-subtitle">Tell us about yourself in your own words.<br>We'll turn it into a personal page you can share.</p>
+      </div>
+
+      <div class="setup-form">
+        <label for="user-blurb" class="blurb-label">About you</label>
+        <textarea
+          id="user-blurb"
+          class="blurb-input"
+          placeholder="Write anything about yourself — your name, what you do, what you're proud of, what you care about. Be as casual or detailed as you'd like.
+
+Example: &quot;I'm Maya, a freelance illustrator based in Portland. I specialize in editorial illustration and children's books. I'm really proud of my recent collaboration with The New Yorker. When I'm not drawing, I'm probably hiking with my dog Pepper or trying a new ramen spot.&quot;"
+          maxlength="3000"
+          rows="8"
+        ></textarea>
+        <div class="blurb-footer">
+          <span class="char-count" id="char-count">0 / 3000</span>
+          <button class="btn-generate" id="btn-generate" disabled>
+            <span class="btn-text">Create my page</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="setup-hints">
+        <p class="hints-label">Not sure what to write? Try mentioning:</p>
+        <div class="hint-chips">
+          <button class="hint-chip" data-hint="your name">👋 Your name</button>
+          <button class="hint-chip" data-hint="what you do for work or fun">💼 What you do</button>
+          <button class="hint-chip" data-hint="something you're proud of">🌟 Something you're proud of</button>
+          <button class="hint-chip" data-hint="a hobby or passion">🎨 A hobby</button>
+          <button class="hint-chip" data-hint="where you're based">📍 Your city</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCREEN 2: LOADING ========== -->
+  <section id="screen-loading" class="screen">
+    <div class="loading-container">
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="loading-text" id="loading-text">Reading your story...</p>
+    </div>
+  </section>
+
+  <!-- ========== SCREEN 3: GENERATED PAGE ========== -->
+  <section id="screen-page" class="screen">
+    <div class="page-wrapper">
+
+      <!-- Top bar -->
+      <nav class="top-bar">
+        <button id="btn-edit" class="top-btn" title="Edit your info">✏️ Edit</button>
+        <button id="theme-toggle" class="top-btn" aria-label="Switch to dark mode">🌙</button>
+      </nav>
+
+      <main id="main-content">
+
+        <!-- Hero -->
+        <section id="hero" aria-label="About me">
+          <div class="hero">
+            <div id="hero-photo-container">
+              <div class="hero-photo-fallback" id="hero-initials" aria-label="Photo">??</div>
+            </div>
+            <div class="hero-text">
+              <h1 id="hero-name" class="hero-name">Loading...</h1>
+              <p id="hero-bio" class="hero-bio"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Proud-of -->
+        <section id="proud" class="fade-in" aria-label="Things I'm proud of">
+          <div id="proud-grid" class="proud-grid"></div>
+        </section>
+
+        <!-- Links -->
+        <section id="links-section" class="fade-in" aria-label="My links">
+          <div id="links-list" class="links-list"></div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Log -->
+        <section id="log" class="fade-in" aria-label="Log">
+          <h2>Log</h2>
+          <ul id="posts-list" class="posts-list">
+            <p class="posts-empty">Loading...</p>
+          </ul>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Guestbook -->
+        <section id="guestbook" class="fade-in" aria-label="Guestbook">
+          <h2>Guestbook</h2>
+          <form id="guestbook-form" class="guestbook-form">
+            <input type="text" name="gb-name" class="guestbook-input" placeholder="Your name" maxlength="30" required>
+            <input type="text" name="gb-message" class="guestbook-input" placeholder="Leave a message..." maxlength="140" required style="flex: 2;">
+            <button type="submit" class="guestbook-submit">Sign ✍️</button>
+          </form>
+          <ul id="guestbook-entries" class="guestbook-entries"></ul>
+        </section>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <p class="footer-text">Made with care, 2026</p>
+        <div class="season-switcher">
+          <span style="color: var(--text-muted);">🎨</span>
+          <button class="season-btn" data-season="spring" onclick="setSeason('spring')">spring</button>
+          ·
+          <button class="season-btn" data-season="summer" onclick="setSeason('summer')">summer</button>
+          ·
+          <button class="season-btn" data-season="autumn" onclick="setSeason('autumn')">autumn</button>
+          ·
+          <button class="season-btn" data-season="winter" onclick="setSeason('winter')">winter</button>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

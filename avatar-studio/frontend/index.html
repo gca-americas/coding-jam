@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Avatar Studio — AI Art Style Transfer</title>
+    <meta name="description"
+        content="Upload a face or pet photo and transform it into stunning art styles — LEGO, Pixel Art, Manga, Watercolor, Claymation, Cyberpunk.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Animated gradient mesh background -->
+    <div class="gradient-mesh"></div>
+
+    <!-- ✨ Animation layers (drop-in, additive only) -->
+    <div class="fx-blobs" aria-hidden="true">
+        <div class="fx-blob"></div>
+        <div class="fx-blob"></div>
+        <div class="fx-blob"></div>
+        <div class="fx-blob"></div>
+    </div>
+    <div class="fx-sparkles" aria-hidden="true" id="fx-sparkles"></div>
+    <div class="fx-grain" aria-hidden="true"></div>
+
+    <!-- ===== SCREEN 1: WELCOME + UPLOAD ===== -->
+    <section id="screen-upload" class="screen active">
+        <div class="container fx-parallax" id="parallax-target">
+            <h1 class="title-hero" id="hero-title" data-reveal>Avatar Studio</h1>
+            <p class="subtitle" data-reveal>Upload a face — yours or your pet's — and watch it transform into stunning art.</p>
+
+            <div class="glass-card" data-reveal>
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-icon">🎨</div>
+                    <p class="upload-text">Drop your photo here</p>
+                    <p class="upload-subtext">or tap to browse</p>
+                    <input type="file" id="photo-input" accept="image/*" hidden>
+                    <button class="btn btn-secondary" id="btn-choose" data-magnetic style="margin-top: 16px;">Choose Photo</button>
+                </div>
+
+                <div class="photo-preview hidden" id="photo-preview">
+                    <img id="photo-img" alt="Your photo preview">
+                    <div class="preview-actions">
+                        <button class="btn btn-secondary" id="btn-change-photo" data-magnetic>Change</button>
+                        <button class="btn btn-primary" id="btn-continue-subject" data-magnetic>Continue →</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="tip" data-reveal>Front-facing, good lighting works best ✦</p>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 2: SUBJECT PICKER ===== -->
+    <section id="screen-subject" class="screen">
+        <div class="container fx-parallax">
+            <div class="glass-card" data-reveal>
+                <button class="btn-back" id="btn-back-subject">← Back</button>
+                <h2 class="title-section" data-reveal>Who's stepping in?</h2>
+                <div class="subject-grid">
+                    <button class="subject-card" data-subject="human" id="card-human" data-reveal>
+                        <div class="subject-icon">🧑</div>
+                        <div class="subject-label">This Is Me</div>
+                        <div class="subject-hint">Transform your face</div>
+                    </button>
+                    <button class="subject-card" data-subject="pet" id="card-pet" data-reveal>
+                        <div class="subject-icon">🐾</div>
+                        <div class="subject-label">My Pet</div>
+                        <div class="subject-hint">Transform your furry friend</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 3: STYLE PICKER ===== -->
+    <section id="screen-styles" class="screen">
+        <div class="container fx-parallax">
+            <div class="glass-card" data-reveal>
+                <button class="btn-back" id="btn-back-styles">← Back</button>
+                <div class="styles-header">
+                    <h2 class="title-section">Choose Your Dimension</h2>
+                    <div class="photo-mini" id="photo-mini">
+                        <img id="photo-mini-img" alt="Your photo">
+                    </div>
+                </div>
+                <div class="styles-grid" id="styles-grid">
+                    <!-- Populated by JS -->
+                </div>
+                <button class="btn btn-primary btn-full disabled" id="btn-transform" disabled data-magnetic>
+                    ✦ Transform ✦
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 4: LOADING ===== -->
+    <section id="screen-loading" class="screen">
+        <div class="container loading-container fx-parallax">
+            <div class="portal-ring">
+                <img class="portal-photo" id="portal-photo" alt="Your photo transforming">
+            </div>
+            <h2 class="loading-title" data-reveal>Painting your alter ego…</h2>
+            <p class="loading-message" id="loading-message" data-reveal>"mixing the palette…"</p>
+            <div class="loading-bar-wrap" data-reveal>
+                <div class="loading-bar-fill" id="loading-bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 5: REVEAL ===== -->
+    <section id="screen-reveal" class="screen">
+        <div class="container fx-parallax">
+            <div class="glass-card" data-reveal>
+                <div class="reveal-header">
+                    <button class="btn-back" id="btn-back-reveal">← Try Another</button>
+                    <div class="reveal-badge" id="reveal-badge">
+                        <span id="badge-emoji">🎨</span>
+                        <span id="badge-name">Style</span>
+                    </div>
+                </div>
+
+                <div class="avatar-frame" id="avatar-frame">
+                    <img id="avatar-img" alt="Your stylized avatar">
+                </div>
+
+                <div class="reveal-actions">
+                    <button class="btn btn-secondary" id="btn-new-style" data-magnetic>🔄 New Style</button>
+                    <button class="btn btn-primary" id="btn-download" data-magnetic>📥 Download</button>
+                </div>
+
+                <!-- Lore Card -->
+                <div class="lore-card hidden" id="lore-card">
+                    <div class="lore-name" id="lore-name"></div>
+                    <div class="lore-title-text" id="lore-title"></div>
+                    <div class="lore-backstory" id="lore-backstory"></div>
+                    <div class="lore-stats" id="lore-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Charisma</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill cha" id="stat-cha"></div>
+                            </div>
+                            <span class="stat-value" id="stat-cha-val">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Power</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill pow" id="stat-pow"></div>
+                            </div>
+                            <span class="stat-value" id="stat-pow-val">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Wisdom</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill wis" id="stat-wis"></div>
+                            </div>
+                            <span class="stat-value" id="stat-wis-val">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Cuteness</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill cut" id="stat-cut"></div>
+                            </div>
+                            <span class="stat-value" id="stat-cut-val">0</span>
+                        </div>
+                    </div>
+                    <div class="lore-actions">
+                        <button class="btn btn-secondary" id="btn-regen-lore" data-magnetic>♻️ New Lore</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary btn-full" id="btn-gen-lore" data-magnetic>✨ Generate Character Lore</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

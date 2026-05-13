@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ GLOW UP — Virtual Hair Try-On ✦</title>
+    <meta name="description" content="Upload a selfie and try on a new hairstyle with AI. Y2K dreamcore makeover experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=VT323&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ✦ Sparkle particle overlay -->
+    <div class="sparkle-field" id="sparkle-field"></div>
+
+    <!-- ===== SCREEN 1: WELCOME / UPLOAD ===== -->
+    <section id="screen-upload" class="screen active">
+        <div class="container">
+            <!-- Hero chrome window -->
+            <div class="chrome-window hero-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">✦ welcome.exe</span>
+                    <span class="chrome-icons">✨ ♪ 📷 <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body hero-body">
+                    <h1 class="logo" id="hero-title">GLOW UP</h1>
+                    <p class="tagline">your next look is one tap away ✦</p>
+                </div>
+            </div>
+
+            <!-- Upload chrome window (overlaps hero) -->
+            <div class="chrome-window upload-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">📷 upload_selfie.exe</span>
+                    <span class="chrome-icons">📁 <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body">
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-icon">📸</div>
+                        <p class="upload-text">DROP YOUR SELFIE HERE</p>
+                        <p class="upload-subtext">or tap to browse ✧</p>
+                        <input type="file" id="selfie-input" accept="image/*" hidden>
+                        <button class="btn btn-chrome" id="btn-choose">CHOOSE PHOTO 📱</button>
+                    </div>
+
+                    <!-- Preview after upload -->
+                    <div class="selfie-preview hidden" id="selfie-preview">
+                        <img id="selfie-img" alt="Your selfie preview">
+                        <div class="preview-actions">
+                            <button class="btn btn-chrome-secondary" id="btn-change-photo">CHANGE PHOTO</button>
+                            <button class="btn btn-chrome" id="btn-continue-gender">CONTINUE ✦</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="tip">✧ front-facing, good lighting works best ✧</p>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 2: GENDER / VIBE PICKER ===== -->
+    <section id="screen-gender" class="screen">
+        <div class="container">
+            <div class="chrome-window vibe-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">💫 select_vibe.exe</span>
+                    <span class="chrome-icons">🛍 ✨ <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body">
+                    <button class="btn-back" id="btn-back-gender">← BACK</button>
+                    <h2 class="section-title">What's Your Vibe?</h2>
+                    <div class="gender-grid">
+                        <button class="gender-card chrome-window" data-gender="femme">
+                            <div class="chrome-window-header mini-header">
+                                <span class="chrome-title">femme.exe</span>
+                                <span class="chrome-close">[X]</span>
+                            </div>
+                            <div class="chrome-window-body card-body">
+                                <div class="gender-icon">👩</div>
+                                <div class="gender-label">Femme</div>
+                                <div class="gender-hint">curtain bangs ✧ pixie ✧ waves ✧ bob</div>
+                            </div>
+                        </button>
+                        <button class="gender-card chrome-window" data-gender="masc">
+                            <div class="chrome-window-header mini-header">
+                                <span class="chrome-title">masc.exe</span>
+                                <span class="chrome-close">[X]</span>
+                            </div>
+                            <div class="chrome-window-body card-body">
+                                <div class="gender-icon">👨</div>
+                                <div class="gender-label">Masc</div>
+                                <div class="gender-hint">textured crop ✧ buzz fade ✧ slick back ✧ flow</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 3: PRESET PICKER ===== -->
+    <section id="screen-presets" class="screen">
+        <div class="container">
+            <div class="chrome-window presets-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">🛍 style_selector.exe</span>
+                    <span class="chrome-icons">✂️ ✨ <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body">
+                    <button class="btn-back" id="btn-back-presets">← BACK</button>
+                    <div class="presets-header">
+                        <h2 class="section-title">Choose Your New Look</h2>
+                        <div class="selfie-mini" id="selfie-mini">
+                            <img id="selfie-mini-img" alt="Your selfie">
+                        </div>
+                    </div>
+                    <div class="presets-grid" id="presets-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="btn btn-glow disabled" id="btn-glow-up" disabled>✦ GLOW ME UP ✦</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 4: LOADING (Download Bar Pattern) ===== -->
+    <section id="screen-loading" class="screen">
+        <div class="container loading-container">
+            <!-- Main loading chrome window -->
+            <div class="chrome-window loading-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">⚡ transformation.exe</span>
+                    <span class="chrome-icons">✨ <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body loading-body">
+                    <div class="loading-sparkles">
+                        <span class="spark">💫</span>
+                        <span class="spark">✨</span>
+                        <span class="spark">💫</span>
+                    </div>
+                    <h2 class="loading-title">WORKING OUR MAGIC</h2>
+                    <p class="loading-quote" id="loading-quote">"great hair doesn't happen by chance…" ✦</p>
+                </div>
+            </div>
+
+            <!-- Floating download bar (signature Y2K flex) -->
+            <div class="chrome-window download-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title" id="download-label">DOWNLOADING YOUR NEW LOOK… 0%</span>
+                    <span class="chrome-close">[X]</span>
+                </div>
+                <div class="chrome-window-body download-body">
+                    <div class="y2k-progress-bar">
+                        <div class="y2k-progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCREEN 5: REVEAL ===== -->
+    <section id="screen-reveal" class="screen">
+        <div class="container">
+            <!-- Reveal chrome window -->
+            <div class="chrome-window reveal-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">✦ glow_up_reveal.exe</span>
+                    <span class="chrome-icons">📷 💌 ✨ <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body">
+                    <div class="reveal-header">
+                        <button class="btn-back" id="btn-try-another">← TRY ANOTHER</button>
+                        <h2 class="logo-small">✦ GLOW UP ✦</h2>
+                    </div>
+
+                    <!-- Output Image -->
+                    <div class="result-container" id="result-container">
+                        <img class="result-img img-after" id="img-after" alt="After transformation">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stylist Note — overlapping chrome window -->
+            <div class="chrome-window stylist-window">
+                <div class="chrome-window-header">
+                    <span class="chrome-title">💅 stylist_note.txt</span>
+                    <span class="chrome-icons">💌 <span class="chrome-close">[X]</span></span>
+                </div>
+                <div class="chrome-window-body" id="stylist-card">
+                    <p class="stylist-note" id="stylist-note"></p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="reveal-actions">
+                <button class="btn btn-chrome-secondary" id="btn-new-look">🔄 NEW LOOK</button>
+                <button class="btn btn-chrome" id="btn-save">📱 SAVE</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

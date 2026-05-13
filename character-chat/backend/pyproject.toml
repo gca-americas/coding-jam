@@ -1,0 +1,11 @@
+[project]
+name = "character-chat-backend"
+version = "1.0.0"
+description = "Anime-inspired AI character chat powered by Gemini Flash"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "google-genai",
+    "python-dotenv",
+]

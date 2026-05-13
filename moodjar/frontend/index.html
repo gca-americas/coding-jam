@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MoodJar — Drop your thoughts into a jar. Track your mood. Rediscover reflections.">
+  <title>MoodJar — Your Reflection Jar</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Emoji Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫙</text></svg>">
+</head>
+<body>
+
+  <!-- ========== DECORATIVE BACKGROUND ========== -->
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bokeh bokeh-1"></div>
+    <div class="bokeh bokeh-2"></div>
+    <div class="bokeh bokeh-3"></div>
+    <div class="bokeh bokeh-4"></div>
+    <div class="bokeh bokeh-5"></div>
+    <div class="sunray sunray-1"></div>
+    <div class="sunray sunray-2"></div>
+    <div class="sunray sunray-3"></div>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="container">
+
+    <!-- ===== ZONE 1: INPUT ===== -->
+    <section class="zone zone-input" id="zone-input" aria-label="Write your thought">
+      <p class="app-title">🫙 moodjar</p>
+      <h1 class="header-text">What's on your mind right now? Drop it here — even the small things matter ✨</h1>
+
+      <div class="input-group">
+        <textarea
+          id="thought-input"
+          class="thought-input"
+          maxlength="1000"
+          rows="4"
+          placeholder="The sky looked different today…"
+          aria-label="Write your thought here"
+        ></textarea>
+        <span class="char-count" id="char-count" aria-live="polite">0 / 1000</span>
+      </div>
+
+      <div class="input-actions">
+        <button id="btn-place" class="btn-primary" disabled aria-label="Drop into my jar">
+          <span>Drop into my jar</span>
+          <span class="btn-icon" aria-hidden="true">🫙</span>
+        </button>
+      </div>
+
+      <!-- Inline loading -->
+      <div id="inline-loader" class="inline-loader hidden" aria-live="polite">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p class="loading-text" id="loading-text">Letting sunlight in…</p>
+      </div>
+
+      <!-- Mood picker -->
+      <div class="mood-picker" id="mood-picker">
+        <span class="mood-label">or just log how you feel:</span>
+        <div class="mood-buttons">
+          <button class="mood-btn" data-mood="sunny" aria-label="Log sunny mood" title="Sunny — happy, energetic, grateful">☀️</button>
+          <button class="mood-btn" data-mood="gentle" aria-label="Log gentle mood" title="Gentle — tender, loving, nostalgic">🌸</button>
+          <button class="mood-btn" data-mood="cloudy" aria-label="Log cloudy mood" title="Cloudy — neutral, tired, observing">☁️</button>
+          <button class="mood-btn" data-mood="rainy" aria-label="Log rainy mood" title="Rainy — sad, heavy, lonely">🌧️</button>
+          <button class="mood-btn" data-mood="stormy" aria-label="Log stormy mood" title="Stormy — frustrated, anxious, restless">⛈️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ZONE 2: JAR ===== -->
+    <section class="zone zone-jar" id="zone-jar" aria-label="Your memory jar">
+      <div class="jar-container" id="jar-container">
+        <div class="jar-rim"></div>
+        <div class="jar-body" id="jar-body">
+          <div class="jar-contents" id="jar-contents">
+            <!-- Slips and mood dots rendered by JS -->
+          </div>
+          <div class="jar-strata" id="jar-strata">
+            <!-- Color bands for older entries -->
+          </div>
+          <p class="jar-empty-text" id="jar-empty">Your jar is waiting for its first thought…</p>
+        </div>
+        <div class="jar-shadow"></div>
+      </div>
+      <button id="btn-shake" class="btn-shake" aria-label="Shake the jar to rediscover a memory">
+        🫙 Shake the jar
+      </button>
+    </section>
+
+    <!-- ===== ZONE 3: MOOD RIBBON ===== -->
+    <section class="zone zone-mood" id="zone-mood" aria-label="Your mood over time">
+      <div class="mood-ribbon" id="mood-ribbon">
+        <!-- Segments rendered by JS -->
+      </div>
+      <div class="mood-stats" id="mood-stats">
+        <!-- Stats rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== CARD OVERLAY ========== -->
+  <div class="card-overlay hidden" id="card-overlay" role="dialog" aria-modal="true" aria-label="Memory detail">
+    <div class="card-overlay-backdrop" id="card-overlay-backdrop"></div>
+    <div class="card-overlay-content" id="card-overlay-content">
+      <!-- Filled dynamically by JS -->
+    </div>
+  </div>
+
+  <!-- ========== ERROR TOAST ========== -->
+  <div class="toast hidden" id="error-toast" role="alert">
+    <p class="toast-text" id="toast-text">The sunlight's being shy. Try again?</p>
+    <button id="toast-dismiss" class="toast-dismiss" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script src="jar.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
