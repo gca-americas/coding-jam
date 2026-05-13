@@ -7,7 +7,7 @@ A beautiful, scroll-driven web experience that turns your meaningful dates into 
 ### 1. Backend Configuration
 Navigate to the backend directory and install dependencies with `uv`:
 ```bash
-cd /Users/annie/Documents/Demo/coding-jam/year-in-poetry/backend
+cd backend
 
 # Install dependencies
 uv sync

@@ -24,7 +24,7 @@ The frontend is served directly by the FastAPI backend, so you only need to run 
 
 1. Navigate to the backend directory:
    ```bash
-   cd /Users/annie/Documents/Demo/coding-jam/glow-up/backend
+   cd backend
    ```
 
 2. Start the server using `uv`:

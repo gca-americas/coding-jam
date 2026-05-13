@@ -53,13 +53,14 @@ my-corner/
 ### 1. Clone & Navigate
 
 ```bash
-cd /Users/annie/Documents/Demo/coding-jam/my-corner
+git clone https://github.com/gca-americas/coding-jam.git
+cd coding-jam/track-6-my-corner
 ```
 
 ### 2. Set Up the Backend
 
 ```bash
-cd /Users/annie/Documents/Demo/coding-jam/my-corner/backend
+cd backend
 
 # Install dependencies
 uv sync

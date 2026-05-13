@@ -12,7 +12,7 @@ The backend uses `uv` for dependency management and runs on Python. It requires 
 
 1. Open a terminal and navigate to the `backend` directory:
    ```bash
-   cd /Users/annie/Documents/Demo/coding-jam/bulletproof/backend
+   cd backend
    ```
 
 2. The `.env` file is already configured with a `GEMINI_API_KEY`. If you need to use a different key, edit the `.env` file:
@@ -32,7 +32,7 @@ The frontend consists of static files and can be served using any simple HTTP se
 
 1. Open a **new** terminal window (keep the backend running) and navigate to the `frontend` directory:
    ```bash
-   cd /Users/annie/Documents/Demo/coding-jam/bulletproof/frontend
+   cd frontend
    ```
 
 2. Start a local HTTP server. You can use Python 3's built-in server. Since the backend is running on port 8000, we'll run the frontend on a different port, like 3000:

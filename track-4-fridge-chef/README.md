@@ -25,7 +25,7 @@ fridge-chef/
 ### 1. Navigate to the backend directory
 
 ```bash
-cd /Users/annie/Documents/Demo/coding-jam/fridge-chef/backend
+cd backend
 ```
 
 ### 2. Install dependencies with `uv`

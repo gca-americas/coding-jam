@@ -18,7 +18,7 @@ An anime-inspired web application that lets you create an AI-powered character a
 2. **Start the server**
    From the `backend/` directory, run:
    ```bash
-   cd /Users/annie/Documents/Demo/coding-jam/character-chat/backend
+   cd backend
    uv run uvicorn main:app --reload
    ```
    `uv` will automatically create the virtual environment and install all dependencies on the first run.

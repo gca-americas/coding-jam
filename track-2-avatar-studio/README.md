@@ -15,7 +15,7 @@ The application consists of a FastAPI backend that also serves the vanilla HTML/
 1. **Navigate to the Backend Directory**
    Open your terminal and change into the backend folder:
    ```bash
-   cd /Users/annie/Documents/Demo/coding-jam/avatar-studio/backend
+   cd backend
    ```
 
 2. **Verify Configuration**
